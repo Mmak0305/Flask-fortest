@@ -1,14 +1,14 @@
 # 初始化資料庫連線
 #import pymongo # 載入 pymongo 套件
-from pymongo.mongo_client import MongoClient
+#from pymongo.mongo_client import MongoClient
 from bson.objectid import ObjectId
 from flask import Flask, request, jsonify
 # import torch
 import os
 # import your_model_module
-uri = "mongodb+srv://Avol0305:Aa3748653@cluster0.fe7wn3k.mongodb.net/?retryWrites=true&w=majority"
-client = MongoClient(uri)
-db=client.membersystem # 選擇操作mywebsite資料庫
+#uri = "mongodb+srv://Avol0305:Aa3748653@cluster0.fe7wn3k.mongodb.net/?retryWrites=true&w=majority"
+#client = MongoClient(uri)
+#db=client.membersystem # 選擇操作mywebsite資料庫
 print("資料庫連線成功")
 # 初始化 Flask 伺服器
 from flask import *
@@ -37,22 +37,22 @@ def error():
 @app.route("/signup", methods=["POST"])
 def signup():
     # 從前端接收資料
-    nickname=request.form["nickname"]
-    email=request.form["email"]
-    password=request.form["password"]
-    # 根據接收到的資料 , 和資料庫互動
-    collection=db.users
-    # 檢查是否有相同的註冊資料
-    result=collection.find_one({
-        "email":email
-    })
-    if result != None:
-        return redirect("/error?msg=信箱已經被註冊")
-    collection.insert_one({
-        "nickname":nickname,
-        "email":email,
-        "password":password
-    })
+    # nickname=request.form["nickname"]
+    # email=request.form["email"]
+    # password=request.form["password"]
+    # # 根據接收到的資料 , 和資料庫互動
+    # collection=db.users
+    # # 檢查是否有相同的註冊資料
+    # result=collection.find_one({
+    #     "email":email
+    # })
+    # if result != None:
+    #     return redirect("/error?msg=信箱已經被註冊")
+    # collection.insert_one({
+    #     "nickname":nickname,
+    #     "email":email,
+    #     "password":password
+    # })
     return redirect("/")
 
 @app.route("/signin", methods=["POST"])
@@ -61,19 +61,19 @@ def signin():
     email=request.form["email"]
     password=request.form["password"]
     # 和資料庫作互動
-    collection=db.users
+    #collection=db.users
     # 檢查信箱密碼是否正確
-    result=collection.find_one({
-        "$and":[
-            {"email":email},
-            {"password":password}    
-        ]
-    })
+    #result=collection.find_one({
+    #     "$and":[
+    #         {"email":email},
+    #         {"password":password}    
+    #     ]
+    # })
     # 登入失敗,導向到錯誤頁面
-    if result==None:
-        return redirect("/error?msg=帳號或密碼輸入錯誤")
-    # 登入成功,在Session紀錄會員資訊,導向到會員頁面
-    session["nickname"]=result["nickname"]
+    # if result==None:
+    #     return redirect("/error?msg=帳號或密碼輸入錯誤")
+    # # 登入成功,在Session紀錄會員資訊,導向到會員頁面
+    # session["nickname"]=result["nickname"]
     return redirect("/member")
 
 @app.route("/signout")
