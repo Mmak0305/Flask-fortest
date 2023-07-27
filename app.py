@@ -116,5 +116,5 @@ def upload():
 #    app.run()
 
 app.secret_key="deep-high-resolution" # 設定 Session的密鑰
-app.run(host='0.0.0.0',port=5000, debug=False)
+app.run(host='0.0.0.0',port=80, debug=False)
 
